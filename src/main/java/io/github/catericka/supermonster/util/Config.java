@@ -109,7 +109,7 @@ public class Config {
 
         configNode.getNode("SkeletonDefense", "enable").setValue(true);
 
-        configNode.getNode("SkeletonCombieShot", "enable").setValue(true);
+        configNode.getNode("SkeletonCombineShot", "enable").setValue(true);
     }
 
     public static boolean isEnableWorld(String worldName) {

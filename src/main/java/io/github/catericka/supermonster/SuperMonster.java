@@ -68,7 +68,7 @@ public class SuperMonster {
         MonsterAttributeControl.init();
         MonsterSpawnControl.init();
         SkeletonDefense.init();
-        SkeletonCombieShot.init();
+        SkeletonCombineShot.init();
         PerMonsterTask.init();
     }
 
