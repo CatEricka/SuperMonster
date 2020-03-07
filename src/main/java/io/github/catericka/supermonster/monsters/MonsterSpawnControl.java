@@ -28,7 +28,7 @@ public class MonsterSpawnControl {
             if (event.getCause().containsType(QueueMultiSpawn.class)) {
                 return;
             }
-            if (!Config.isEnableWorld(entity.getWorld().getName()) || !(entity instanceof Monster)) {
+            if (!Config.isWorldEnable(entity.getWorld().getName()) || !(entity instanceof Monster)) {
                 return;
             }
             //SuperMonster.getLogger().debug(entity.getType().getName() + " instanceof Monster");

@@ -22,7 +22,7 @@ public class MonsterAttack {
         //SuperMonster.getLogger().debug("DamageEntityEventTarget: " + event.getTargetEntity().toString());
         //SuperMonster.getLogger().debug("  EntityDamageSource: " + source.getSource().getType().getName());
 
-        if (!Config.isEnableWorld(source.getSource().getWorld().getName())) {
+        if (!Config.isWorldEnable(source.getSource().getWorld().getName())) {
             return;
         }
 

@@ -19,7 +19,7 @@ public class CreeperExplode {
     @Listener
     public void DeathExplode(DestructEntityEvent.Death event) {
         Living entity = event.getTargetEntity();
-        if (!Config.isEnableWorld(entity.getWorld().getName())) {
+        if (!Config.isWorldEnable(entity.getWorld().getName())) {
             return;
         }
         if (Config.getConfigNode().getNode("CreeperDeathExplode", "enable").getBoolean(true) && entity.getType() == EntityTypes.CREEPER) {

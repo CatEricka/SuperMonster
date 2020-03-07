@@ -20,7 +20,7 @@ public class SkeletonDefense {
     public void DefenseAway(DamageEntityEvent event, @First EntityDamageSource source) {
         Entity entity = event.getTargetEntity();
         Entity damager = source.getSource();
-        if (!Config.isEnableWorld(entity.getWorld().getName()) || !Config.getConfigNode()
+        if (!Config.isWorldEnable(entity.getWorld().getName()) || !Config.getConfigNode()
                 .getNode("SkeletonDefense", "enable").getBoolean(true)) {
             return;
         }

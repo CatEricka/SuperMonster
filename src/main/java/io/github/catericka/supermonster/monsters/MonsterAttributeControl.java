@@ -28,7 +28,7 @@ public class MonsterAttributeControl {
     }
 
     private void modifyEntity(Entity entity) {
-        if (!Config.isEnableWorld(entity.getWorld().getName()) || !(entity instanceof Living)) {
+        if (!Config.isWorldEnable(entity.getWorld().getName()) || !(entity instanceof Living)) {
             return;
         }
 

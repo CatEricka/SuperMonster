@@ -112,13 +112,11 @@ public class Config {
         configNode.getNode("SkeletonCombineShot", "enable").setValue(true);
     }
 
-    public static boolean isEnableWorld(String worldName) {
+    public static boolean isWorldEnable(String worldName) {
         List<? extends ConfigurationNode> worlds = configNode.getNode("EnableWorlds").getChildrenList();
         for (ConfigurationNode world :
                 worlds) {
-            if (Objects.equals(world.getString(), worldName)) {
-                return true;
-            }
+            return Objects.equals(world.getString(), worldName);
         }
         return false;
     }
