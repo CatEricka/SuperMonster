@@ -90,8 +90,8 @@ public class Config {
         configNode.getNode("MonsterAttributeControl", "skeleton", "DisplayName", "name").setValue("可怕骷髅先生");
         configNode.getNode("MonsterAttributeControl", "skeleton", "Healthy").setValue(30);
         configNode.getNode("MonsterAttributeControl", "skeleton", "AttackDamage").setValue(6);
-        potionEffectList = new HashMap<>();
-        configNode.getNode("MonsterAttributeControl", "zombie", "PotionEffect").setValue(potionEffectList);
+        //as same as zombie's PotionEffect
+        configNode.getNode("MonsterAttributeControl", "skeleton", "PotionEffect").setValue(potionEffectList);
 
         configNode.getNode("MonsterAttributeControl", "arrow", "enable").setValue(true);
         configNode.getNode("MonsterAttributeControl", "skeleton", "AttackDamage").setValue(3);
