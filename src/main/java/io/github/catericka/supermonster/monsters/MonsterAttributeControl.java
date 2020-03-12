@@ -35,7 +35,11 @@ public class MonsterAttributeControl {
         if (Config.getConfigNode()
                 .getNode("MonsterAttributeControl", entity.getType().getName(), "enable")
                 .getBoolean(false)) {
-            //SuperMonster.getLogger().debug(entity.toString() + " spawned.");
+
+            //debug info
+            if (Config.getConfigNode().getNode("Debug", "enableMonsterInfo").getBoolean(false)) {
+                SuperMonster.getLogger().info("MonsterInfo: SpawnEntityEvent -> " + entity.toString());
+            }
 
             setMaxHealth(entity);
             setHealthToMaxHealth(entity);
@@ -49,7 +53,14 @@ public class MonsterAttributeControl {
             entity.offer(Keys.MAX_HEALTH, Config.getConfigNode()
                     .getNode("MonsterAttributeControl", entity.getType().getName(), "Healthy")
                     .getDouble(20));
-            //SuperMonster.getLogger().debug("  MAX_HEALTH of " + entity.getType().getName() + " set to " + Config.getConfigNode().getNode("MonsterAttributeControl", entity.getType().getName(), "Healthy").getDouble(20));
+
+            //debug info
+            if (Config.getConfigNode().getNode("Debug", "enableMonsterInfo").getBoolean(false)) {
+                SuperMonster.getLogger().info("  MonsterInfo: MAX_HEALTH set to " + Config.getConfigNode()
+                        .getNode("MonsterAttributeControl", entity.getType().getName(), "Healthy")
+                        .getDouble(20));
+            }
+
         } else {
             SuperMonster.getLogger().warn(entity.getType().getName() + " NOT SUPPORT MAX_HEALTH!");
         }
@@ -81,7 +92,12 @@ public class MonsterAttributeControl {
                     .forEach((k, v) -> {
                         String effect = k.toString();
                         int level = v.getInt(1);
-                        //SuperMonster.getLogger().debug("  " + entity.getType().getName() + " potion effect set to " + effect.toString() + " " + level);
+
+                        //debug info
+                        if (Config.getConfigNode().getNode("Debug", "enableMonsterInfo").getBoolean(false)) {
+                            SuperMonster.getLogger().info("  MonsterInfo: Add PotionEffect -> " + effect);
+                        }
+
                         Sponge.getRegistry().getType(PotionEffectType.class, effect).ifPresent(effectType ->
                                 potionEffectList.add(PotionEffect
                                         .builder()

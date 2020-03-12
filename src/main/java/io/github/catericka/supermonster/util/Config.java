@@ -9,7 +9,10 @@ import ninja.leaping.configurate.loader.ConfigurationLoader;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Config {
     private static File configFile;
@@ -66,8 +69,13 @@ public class Config {
     }
 
     public static void setDefaultConfig() {
+        configNode.getNode("Debug", "enableDamageInfo").setValue(false);
+        configNode.getNode("Debug", "enableMonsterInfo").setValue(false);
+
         List<String> worldList = new ArrayList<>();
         worldList.add("world");
+        worldList.add("DIM-1");
+        worldList.add("DIM1");
         configNode.getNode("EnableWorlds").setValue(worldList);
 
         configNode.getNode("SuperCharge", "enable").setValue(true);
@@ -94,7 +102,7 @@ public class Config {
         configNode.getNode("MonsterAttributeControl", "skeleton", "PotionEffect").setValue(potionEffectList);
 
         configNode.getNode("MonsterAttributeControl", "arrow", "enable").setValue(true);
-        configNode.getNode("MonsterAttributeControl", "skeleton", "AttackDamage").setValue(3);
+        configNode.getNode("MonsterAttributeControl", "arrow", "AttackDamage").setValue(3);
 
         configNode.getNode("MonsterSpawnControl", "enable").setValue(true);
         configNode.getNode("MonsterSpawnControl", "QueueMultiSpawn", "enable").setValue(true);
@@ -114,9 +122,10 @@ public class Config {
 
     public static boolean isWorldEnable(String worldName) {
         List<? extends ConfigurationNode> worlds = configNode.getNode("EnableWorlds").getChildrenList();
-        for (ConfigurationNode world :
-                worlds) {
-            return Objects.equals(world.getString(), worldName);
+        for (ConfigurationNode world : worlds) {
+            if (world.getString("").equals(worldName)) {
+                return true;
+            }
         }
         return false;
     }

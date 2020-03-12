@@ -3,7 +3,7 @@ package io.github.catericka.supermonster.monsters;
 import io.github.catericka.supermonster.SuperMonster;
 import io.github.catericka.supermonster.util.Config;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.entity.living.monster.Monster;
+import org.spongepowered.api.entity.living.Hostile;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.cause.entity.damage.source.EntityDamageSource;
 import org.spongepowered.api.event.cause.entity.damage.source.IndirectEntityDamageSource;
@@ -18,17 +18,25 @@ public class MonsterAttack {
 
     @Listener
     public void onAttack(DamageEntityEvent event, @First EntityDamageSource source) {
-
-        //SuperMonster.getLogger().debug("DamageEntityEventTarget: " + event.getTargetEntity().toString());
-        //SuperMonster.getLogger().debug("  EntityDamageSource: " + source.getSource().getType().getName());
-
         if (!Config.isWorldEnable(source.getSource().getWorld().getName())) {
             return;
         }
 
+        //debug info
+        if (Config.getConfigNode().getNode("Debug", "enableDamageInfo").getBoolean(false)) {
+            SuperMonster.getLogger().info("DamageInfo: DamageEntityEventTarget -> " + event.getTargetEntity().toString());
+            SuperMonster.getLogger().info("  DamageInfo: EntityDamageSource -> " + source.getSource().getType().getName());
+        }
+
         if (source instanceof IndirectEntityDamageSource) {
             IndirectEntityDamageSource indirectSource = (IndirectEntityDamageSource) source;
-            if (!(indirectSource.getIndirectSource() instanceof Monster)) {
+
+            //debug info
+            if (Config.getConfigNode().getNode("Debug", "enableDamageInfo").getBoolean(false)) {
+                SuperMonster.getLogger().info("  DamageInfo: IndirectEntityDamageSource -> " + indirectSource.getIndirectSource().getType().getName());
+            }
+
+            if (!(indirectSource.getIndirectSource() instanceof Hostile)) {
                 return;
             }
         }
@@ -38,9 +46,14 @@ public class MonsterAttack {
             event.setBaseDamage(Config.getConfigNode()
                     .getNode("MonsterAttributeControl", source.getSource().getType().getName(), "AttackDamage")
                     .getDouble());
-            //SuperMonster.getLogger().debug("  damage: " + Config.getConfigNode().getNode("MonsterAttributeControl", source.getSource().getType().getName(), "AttackDamage").getDouble());
-        }
 
+            //debug info
+            if (Config.getConfigNode().getNode("Debug", "enableDamageInfo").getBoolean(false)) {
+                SuperMonster.getLogger().info("  DamageInfo: Damage -> " + Config.getConfigNode()
+                        .getNode("MonsterAttributeControl", source.getSource().getType().getName(), "AttackDamage")
+                        .getDouble());
+            }
+        }
     }
 }
 

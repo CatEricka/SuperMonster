@@ -5,7 +5,7 @@ import io.github.catericka.supermonster.event.QueueMultiSpawn;
 import io.github.catericka.supermonster.util.Config;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.Entity;
-import org.spongepowered.api.entity.living.monster.Monster;
+import org.spongepowered.api.entity.living.Hostile;
 import org.spongepowered.api.event.CauseStackManager;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.cause.EventContextKeys;
@@ -28,7 +28,7 @@ public class MonsterSpawnControl {
             if (event.getCause().containsType(QueueMultiSpawn.class)) {
                 return;
             }
-            if (!Config.isWorldEnable(entity.getWorld().getName()) || !(entity instanceof Monster)) {
+            if (!Config.isWorldEnable(entity.getWorld().getName()) || !(entity instanceof Hostile)) {
                 return;
             }
             //SuperMonster.getLogger().debug(entity.getType().getName() + " instanceof Monster");

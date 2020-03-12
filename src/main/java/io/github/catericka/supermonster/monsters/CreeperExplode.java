@@ -1,14 +1,16 @@
 package io.github.catericka.supermonster.monsters;
 
-
 import io.github.catericka.supermonster.SuperMonster;
 import io.github.catericka.supermonster.util.Config;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.entity.living.Living;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.cause.entity.damage.source.DamageSource;
 import org.spongepowered.api.event.entity.DestructEntityEvent;
 import org.spongepowered.api.world.explosion.Explosion;
+
+import java.util.Optional;
 
 public class CreeperExplode {
 
@@ -22,7 +24,17 @@ public class CreeperExplode {
         if (!Config.isWorldEnable(entity.getWorld().getName())) {
             return;
         }
-        if (Config.getConfigNode().getNode("CreeperDeathExplode", "enable").getBoolean(true) && entity.getType() == EntityTypes.CREEPER) {
+
+        Optional<DamageSource> damageSource = event.getCause().first(DamageSource.class);
+        if (damageSource.isPresent()) {
+            if (damageSource.get().isExplosive()) {
+                return;
+            }
+        } else {
+            return;
+        }
+
+        if (Config.getConfigNode().getNode("CreeperDeathExplode", "enable").getBoolean(true) && entity.getType().equals(EntityTypes.CREEPER)) {
             entity.getWorld().triggerExplosion(Explosion.builder()
                     .location(entity.getLocation())
                     .radius(Config.getConfigNode().getNode("CreeperDeathExplode", "radius").getFloat(2))
